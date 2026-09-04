@@ -1,16 +1,18 @@
+Write up ini, dan solvenya, AI generated
+
 # Writeup — Crypto: "Math" (C2SI)
 
 **Flag:** `C2SI{e4sy_m4th_w3lc0m3_t0_ctf_f0r_n3w_m3mber_4t_SMK_Immanuel_Pontianak_G00DLUCK}`
 
 ## File
 
-| File | Isi |
-|---|---|
-| `enc.py` | Encoder yang diberikan panitia |
-| `enc_flag.txt` | Output JSON, satu-satunya data yang dipegang solver |
-| `solve.py` | Solver lengkap keempat part |
-| `naive_fail.py` | Demo kenapa Part 1 tidak bisa di-solve langsung dengan numpy |
-| `verify.py` | Re-encrypt flag hasil recovery, bandingkan dengan file panitia |
+| File            | Isi                                                            |
+| --------------- | -------------------------------------------------------------- |
+| `enc.py`        | Encoder yang diberikan panitia                                 |
+| `enc_flag.txt`  | Output JSON, satu-satunya data yang dipegang solver            |
+| `solve.py`      | Solver lengkap keempat part                                    |
+| `naive_fail.py` | Demo kenapa Part 1 tidak bisa di-solve langsung dengan numpy   |
+| `verify.py`     | Re-encrypt flag hasil recovery, bandingkan dengan file panitia |
 
 ```
 python solve.py       # cetak flag
@@ -29,12 +31,12 @@ chunks = [flag[i * chunk_size : (i + 1) * chunk_size] for i in range(4)]
 
 Semua operasinya **linear dan invertible** — tidak ada key rahasia, tidak ada operasi satu arah. Jadi tiap part cukup dibalik.
 
-| Part | Operasi | Cara balik |
-|---|---|---|
-| 1 | Integral tentu polinomial | Sistem linear tipe Vandermonde (ill-conditioned) → DFS + interval pruning |
-| 2 | Perkalian matriks `C = K·P`, `K` diberikan | `P = K⁻¹·C` |
-| 3 | `y = A·x + b`, `A` & `b` diberikan | Solve `A·x = y − b` |
-| 4 | Rata-rata kumulatif | Selisih dari sum kumulatif |
+| Part | Operasi                                    | Cara balik                                                                |
+| ---- | ------------------------------------------ | ------------------------------------------------------------------------- |
+| 1    | Integral tentu polinomial                  | Sistem linear tipe Vandermonde (ill-conditioned) → DFS + interval pruning |
+| 2    | Perkalian matriks `C = K·P`, `K` diberikan | `P = K⁻¹·C`                                                               |
+| 3    | `y = A·x + b`, `A` & `b` diberikan         | Solve `A·x = y − b`                                                       |
+| 4    | Rata-rata kumulatif                        | Selisih dari sum kumulatif                                                |
 
 Karena `A` dan `b` dibangkitkan dengan `np.random.seed(1337)` yang fixed **dan** ikut ditulis ke output, part 3 tidak menyimpan rahasia apa pun.
 

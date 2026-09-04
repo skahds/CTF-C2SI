@@ -1,3 +1,5 @@
 # CTF-C2SI
+
 My writeups
-Each wirteup/solution lives in a folder of their challenge
+
+Each writeup/solution lives in their own folder, usually inside containing the given challenge
